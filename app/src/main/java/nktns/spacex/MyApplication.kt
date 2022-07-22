@@ -2,6 +2,7 @@ package nktns.spacex
 
 import android.app.Application
 import androidx.fragment.app.Fragment
+import com.facebook.drawee.backends.pipeline.Fresco
 import nktns.spacex.di.AppComponent
 import nktns.spacex.di.DaggerAppComponent
 import timber.log.Timber
@@ -21,8 +22,8 @@ class MyApplication : Application() {
         if (BuildConfig.DEBUG) {
             plant(Timber.DebugTree())
         }
-
-        _appComponent = DaggerAppComponent.create()
+        Fresco.initialize(this)
+        _appComponent = DaggerAppComponent.factory().create(this)
     }
 }
 

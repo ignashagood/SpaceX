@@ -2,4 +2,6 @@
     <string name="app_name">SpaceX</string>
     <string name="vehicles_fragment_title">Vehicles</string>
     <string name="vehicle_item_name">Vehicle</string>
+    <string name="vehicle_name">Vehicle name</string>
+    <string name="heat_shield">Heat shield</string>
 </resources>
