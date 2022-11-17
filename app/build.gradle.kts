@@ -1,7 +1,9 @@
+
 plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
+    id("kotlin-parcelize")
     id("kotlinx-serialization")
 }
 
@@ -48,7 +50,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.4.2")
     implementation("com.google.android.material:material:1.6.1")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.fragment:fragment-ktx:1.4.1")
+    implementation("androidx.fragment:fragment-ktx:1.5.0")
 
     val daggerVersion = "2.42"
     implementation("com.google.dagger:dagger:$daggerVersion")
@@ -78,6 +80,18 @@ dependencies {
     implementation("io.reactivex.rxjava3:rxandroid:3.0.0")
 
     implementation("com.jakewharton.timber:timber:5.0.1")
+
+    implementation("com.facebook.fresco:fresco:1.13.0")
+
+    implementation("com.hannesdorfmann:adapterdelegates4-kotlin-dsl:4.3.2")
+    implementation("com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:4.3.2")
+
+    val roomVersion = "2.4.2"
+
+    implementation("androidx.room:room-runtime:$roomVersion")
+    annotationProcessor("androidx.room:room-compiler:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
 
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.9.1")
 }
