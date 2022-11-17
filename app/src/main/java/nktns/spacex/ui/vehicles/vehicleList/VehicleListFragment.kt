@@ -127,7 +127,7 @@ class VehicleListFragment : Fragment(), OnVehicleClickListener {
                     R.id.fragment_container,
                     RocketInfoFragment.newInstance(rocket, rocket.id)
                 )
-                .addToBackStack(null)
+                .addToBackStack("rocket info")
                 .commit()
             lastClickedElement = null
         }

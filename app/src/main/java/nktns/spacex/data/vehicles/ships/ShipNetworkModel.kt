@@ -76,7 +76,8 @@ fun List<ShipNetworkModel>.asDatabaseModel(): List<ShipDatabaseModel> {
                 speed = speedKn,
                 homePort = homePort,
                 status = status,
-                MMSI = mmsi
+                MMSI = mmsi,
+                mass = massKg.toString()
             )
         }
     }
@@ -94,7 +95,8 @@ fun List<ShipNetworkModel>.asInteractorModel(): List<VehicleModel> {
                 speed = speedKn.toString(),
                 homePort = homePort,
                 status = status,
-                MMSI = mmsi.toString()
+                MMSI = mmsi.toString(),
+                mass = massKg.toString()
             )
         }
     }

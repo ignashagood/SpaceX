@@ -11,13 +11,13 @@ import nktns.spacex.ui.vehicles.vehicleList.VehicleListFragment
 class PagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fragmentManager, lifecycle) {
 
-    override fun getItemCount() = 2
+    override fun getItemCount() = 3
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> VehicleListFragment()
             1 -> CompanyFragment()
-            // 2 -> LaunchesFragment()
+            2 -> LaunchesFragment()
             else -> error("Unexpected position $position")
         }
     }

@@ -13,6 +13,7 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import nktns.spacex.data.SpaceXApi
 import nktns.spacex.data.database.SpaceXDatabase
+import nktns.spacex.data.database.company.CompanyDAO
 import nktns.spacex.data.database.launches.LaunchDAO
 import nktns.spacex.data.database.vehicles.dragons.DragonDAO
 import nktns.spacex.data.database.vehicles.rockets.RocketDAO
@@ -109,6 +110,11 @@ class AppModule {
         @Provides
         fun provideShipDAO(database: SpaceXDatabase): ShipDAO {
             return database.shipDAO()
+        }
+
+        @Provides
+        fun provideCompanyDAO(database: SpaceXDatabase): CompanyDAO {
+            return database.companyDAO()
         }
     }
 }

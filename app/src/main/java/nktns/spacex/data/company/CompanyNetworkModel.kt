@@ -2,9 +2,10 @@ package nktns.spacex.data.company
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import nktns.spacex.data.database.company.CompanyDatabaseModel
 
 @Serializable
-data class Company(
+data class CompanyNetworkModel(
 
     @SerialName("summary")
     val summary: String? = null,
@@ -13,7 +14,7 @@ data class Company(
     val coo: String? = null,
 
     @SerialName("founder")
-    val founder: String? = null,
+    val founder: String,
 
     @SerialName("founded")
     val founded: Int? = null,
@@ -34,13 +35,13 @@ data class Company(
     val valuation: Long? = null,
 
     @SerialName("name")
-    val name: String? = null,
+    val name: String,
 
     @SerialName("links")
-    val links: Links? = null,
+    val links: Links,
 
     @SerialName("id")
-    val id: String? = null,
+    val id: String,
 
     @SerialName("employees")
     val employees: Int? = null,
@@ -59,16 +60,16 @@ data class Company(
 data class Links(
 
     @SerialName("website")
-    val website: String? = null,
+    val website: String,
 
     @SerialName("twitter")
-    val twitter: String? = null,
+    val twitter: String,
 
     @SerialName("flickr")
-    val flickr: String? = null,
+    val flickr: String,
 
     @SerialName("elon_twitter")
-    val elonTwitter: String? = null,
+    val elonTwitter: String,
 )
 
 @Serializable
@@ -83,3 +84,12 @@ data class Headquarters(
     @SerialName("state")
     val state: String? = null,
 )
+
+fun CompanyNetworkModel.asDatabaseModel(): CompanyDatabaseModel {
+    return CompanyDatabaseModel(
+        id = this.id,
+        name = this.name,
+        founder = this.founder,
+        website = this.links.website
+    )
+}

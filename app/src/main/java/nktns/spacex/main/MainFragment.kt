@@ -17,7 +17,7 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View = MainFragmentBinding.inflate(inflater, container, false).run {
         binding = this
-        pager.adapter = PagerAdapter(childFragmentManager, lifecycle)
+        pager.adapter = PagerAdapter(childFragmentManager, viewLifecycleOwner.lifecycle)
         pager.isUserInputEnabled = false
         root
     }
@@ -34,10 +34,10 @@ class MainFragment : Fragment() {
                         pager.currentItem = 1
                         true
                     }
-//                    R.id.page_3 -> {
-//                        pager.currentItem = 2
-//                        true
-//                    }
+                    R.id.page_3 -> {
+                        pager.currentItem = 2
+                        true
+                    }
                     else -> false
                 }
             }

@@ -1,6 +1,6 @@
 package nktns.spacex.data
 
-import nktns.spacex.data.company.Company
+import nktns.spacex.data.company.CompanyNetworkModel
 import nktns.spacex.data.launches.LaunchNetworkModel
 import nktns.spacex.data.vehicles.dragons.DragonNetworkModel
 import nktns.spacex.data.vehicles.rockets.RocketNetworkModel
@@ -19,7 +19,7 @@ interface SpaceXApi {
     suspend fun getDragonsList(): Response<List<DragonNetworkModel>>
 
     @GET("./company")
-    suspend fun getCompanyInfo(): Response<Company>
+    suspend fun getCompanyInfo(): Response<CompanyNetworkModel>
 
     @GET("./launches")
     suspend fun getLaunchList(): Response<List<LaunchNetworkModel>>

@@ -30,6 +30,7 @@ data class Ship(
     val homePort: String?,
     val status: String?,
     val MMSI: String,
+    val mass: String
 ) : VehicleModel(id), Parcelable
 
 @Parcelize

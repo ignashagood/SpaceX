@@ -23,8 +23,7 @@ class LaunchesVM @Inject constructor(private val repository: LaunchesRepository)
         viewModelScope.launch(Dispatchers.IO) {
             repository.getLaunches().collect { newLaunchList ->
                 when (newLaunchList) {
-                    is Result.Success,
-                    -> {
+                    is Result.Success -> {
                         val currentLaunchList: List<LaunchUIModel> =
                             (state.value as? LaunchesState.Content)?.launchList ?: emptyList()
                         val result: DiffUtil.DiffResult =

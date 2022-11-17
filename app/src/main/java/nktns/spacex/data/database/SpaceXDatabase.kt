@@ -2,6 +2,8 @@ package nktns.spacex.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import nktns.spacex.data.database.company.CompanyDAO
+import nktns.spacex.data.database.company.CompanyDatabaseModel
 import nktns.spacex.data.database.launches.LaunchDAO
 import nktns.spacex.data.database.launches.LaunchDatabaseModel
 import nktns.spacex.data.database.vehicles.dragons.DragonDAO
@@ -16,11 +18,13 @@ import nktns.spacex.data.database.vehicles.ships.ShipDatabaseModel
         LaunchDatabaseModel::class,
         RocketDatabaseModel::class,
         DragonDatabaseModel::class,
-        ShipDatabaseModel::class
+        ShipDatabaseModel::class,
+        CompanyDatabaseModel::class
     ],
     version = 1
 )
 abstract class SpaceXDatabase : RoomDatabase() {
+    abstract fun companyDAO(): CompanyDAO
     abstract fun launchDAO(): LaunchDAO
     abstract fun rocketDAO(): RocketDAO
     abstract fun dragonDAO(): DragonDAO

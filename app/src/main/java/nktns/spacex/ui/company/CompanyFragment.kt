@@ -46,4 +46,9 @@ class CompanyFragment : Fragment() {
             founder.text = state.company.founder
         }
     }
+
+    override fun onDestroyView() {
+        binding = null
+        super.onDestroyView()
+    }
 }

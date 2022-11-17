@@ -68,7 +68,7 @@ class ShipInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         postponeEnterTransition()
-        val ship = requireArguments().getParcelable<ShipNetworkModel>(SHIP)
+        val ship = requireArguments().getParcelable<Ship>(SHIP)
         binding?.run {
             shipName.text = ship?.name
             backButton.setOnClickListener {
@@ -84,13 +84,12 @@ class ShipInfoFragment : Fragment() {
                             it
                         ),
                         ComplexVehicleProperty("Type", type),
-                        ComplexVehicleProperty("Model", model ?: ""),
-                        ComplexVehicleProperty("Mass", "$massKg kg"),
-                        ComplexVehicleProperty("Speed", "$speedKn kn"),
-                        //ComplexShipProperty("Year built", "$yearBuilt"),
+                        ComplexVehicleProperty("Model", model ?: "no info"),
+                        ComplexVehicleProperty("Mass", "$mass kg"),
+                        ComplexVehicleProperty("Speed", "$speed kn"),
                         ComplexVehicleProperty("Home port", homePort ?: "no info"),
                         ComplexVehicleProperty("Status", status ?: "no info"),
-                        ComplexVehicleProperty("MMSI", "$mmsi"),
+                        ComplexVehicleProperty("MMSI", "$MMSI"),
                     )
                     items = propertyList
                 }

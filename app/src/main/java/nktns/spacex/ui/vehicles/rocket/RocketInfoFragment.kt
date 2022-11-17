@@ -72,7 +72,7 @@ class RocketInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         postponeEnterTransition()
-        val rocket = requireArguments().getParcelable<RocketNetworkModel>(ROCKET)
+        val rocket = requireArguments().getParcelable<Rocket>(ROCKET)
         binding?.run {
             rocketName.text = rocket?.name
             backButton.setOnClickListener {
@@ -84,15 +84,15 @@ class RocketInfoFragment : Fragment() {
                 requireArguments().getString(TRANSITION_NAME)?.let {
                     val propertyList: List<VehicleProperty> = listOf(
                         ImageVehicleProperty(
-                            rocket.flickrImages[0],
+                            rocket.image,
                             it
                         ),
                         SimpleVehicleProperty(description),
                         ComplexVehicleProperty("Company", company),
                         ComplexVehicleProperty("Country", country),
-                        ComplexVehicleProperty("Mass", "${mass.kg} kg"),
-                        ComplexVehicleProperty("Height", "${height.meters} m"),
-                        ComplexVehicleProperty("Diameter", "${diameter.meters} m"),
+                        ComplexVehicleProperty("Mass", "$mass kg"),
+                        ComplexVehicleProperty("Height", "$height m"),
+                        ComplexVehicleProperty("Diameter", "$diameter m"),
                         ComplexVehicleProperty("First flight", firstFlight),
                     )
                     items = propertyList

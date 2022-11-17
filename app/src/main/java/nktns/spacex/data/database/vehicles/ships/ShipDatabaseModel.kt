@@ -16,6 +16,7 @@ data class ShipDatabaseModel(
     val model: String?,
     val speed: Int?,
     val homePort: String?,
+    val mass: String?,
     val status: String?,
     val MMSI: Int?
 ) : VehicleDatabaseModel
@@ -32,7 +33,8 @@ fun List<ShipDatabaseModel>.asInteractorModel(): List<VehicleModel> {
                 speed = speed.toString(),
                 homePort = homePort,
                 status = status,
-                MMSI = MMSI.toString()
+                MMSI = MMSI.toString(),
+                mass = mass.toString()
             )
         }
     }

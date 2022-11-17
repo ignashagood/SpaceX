@@ -50,4 +50,12 @@ class LaunchesFragment : Fragment() {
             contentStateApplied = true
         }
     }
+
+    override fun onDestroyView() {
+        binding?.run {
+            recyclerView.adapter = null
+            binding = null
+            super.onDestroyView()
+        }
+    }
 }
