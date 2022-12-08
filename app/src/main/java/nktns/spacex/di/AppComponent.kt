@@ -9,6 +9,7 @@ import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
 import dagger.Provides
+import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import nktns.spacex.data.SpaceXApi
@@ -74,6 +75,7 @@ class AppModule {
                 .baseUrl("https://api.spacexdata.com/v4/")
                 .client(okHttpClient)
                 .addConverterFactory(json.asConverterFactory(contentType))
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .build()
         }

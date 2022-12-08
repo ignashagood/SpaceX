@@ -12,7 +12,7 @@
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:padding="4dp"
-        fresco:placeholderImage="@color/grey"
+        fresco:placeholderImage="@drawable/ic_launch_placeholder"
         fresco:roundedCornerRadius="12dp" />
 
     <androidx.appcompat.widget.LinearLayoutCompat

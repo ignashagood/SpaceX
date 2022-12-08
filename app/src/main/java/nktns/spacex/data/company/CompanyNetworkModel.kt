@@ -8,7 +8,7 @@ import nktns.spacex.data.database.company.CompanyDatabaseModel
 data class CompanyNetworkModel(
 
     @SerialName("summary")
-    val summary: String? = null,
+    val summary: String,
 
     @SerialName("coo")
     val coo: String? = null,
@@ -17,7 +17,7 @@ data class CompanyNetworkModel(
     val founder: String,
 
     @SerialName("founded")
-    val founded: Int? = null,
+    val founded: Int,
 
     @SerialName("vehicles")
     val vehicles: Int? = null,
@@ -87,9 +87,12 @@ data class Headquarters(
 
 fun CompanyNetworkModel.asDatabaseModel(): CompanyDatabaseModel {
     return CompanyDatabaseModel(
-        id = this.id,
-        name = this.name,
-        founder = this.founder,
-        website = this.links.website
+        id = id,
+        name = name,
+        founder = founder,
+        website = links.website,
+        summary = summary,
+        founded = founded.toString(),
+        twitter = links.twitter
     )
 }

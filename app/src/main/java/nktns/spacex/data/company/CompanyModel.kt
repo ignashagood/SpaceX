@@ -5,4 +5,7 @@ data class CompanyModel(
     val name: String,
     val founder: String,
     val website: String,
+    val summary: String,
+    val founded: String,
+    val twitter: String
 )

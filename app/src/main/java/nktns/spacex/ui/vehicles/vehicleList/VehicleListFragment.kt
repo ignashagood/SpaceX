@@ -69,13 +69,11 @@ class VehicleListFragment : Fragment(), OnVehicleClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        lifecycleScope.launchWhenStarted {
-            viewModel.state.collect {
-                when (it) {
-                    is VehicleListState.InitialLoading -> {}
-                    is VehicleListState.Content -> {
-                        applyState(it)
-                    }
+        viewModel.state.observe(viewLifecycleOwner) {
+            when (it) {
+                is VehicleListState.InitialLoading -> {}
+                is VehicleListState.Content -> {
+                    applyState(it)
                 }
             }
         }

@@ -11,14 +11,14 @@ data class ShipDatabaseModel(
     @PrimaryKey
     val id: String,
     val name: String,
-    val image: String?,
+    val image: String,
     val type: String,
-    val model: String?,
-    val speed: Int?,
-    val homePort: String?,
-    val mass: String?,
-    val status: String?,
-    val MMSI: Int?
+    val model: String,
+    val speed: String,
+    val homePort: String,
+    val mass: String,
+    val status: String,
+    val MMSI: String
 ) : VehicleDatabaseModel
 
 fun List<ShipDatabaseModel>.asInteractorModel(): List<VehicleModel> {
@@ -30,11 +30,11 @@ fun List<ShipDatabaseModel>.asInteractorModel(): List<VehicleModel> {
                 image = image,
                 type = type,
                 model = model,
-                speed = speed.toString(),
+                speed = speed,
                 homePort = homePort,
                 status = status,
-                MMSI = MMSI.toString(),
-                mass = mass.toString()
+                MMSI = MMSI,
+                mass = mass
             )
         }
     }

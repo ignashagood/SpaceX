@@ -72,6 +72,7 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:$okhttpVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
     implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
+    implementation("com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinCoroutineVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutineVersion")
@@ -92,6 +93,10 @@ dependencies {
     annotationProcessor("androidx.room:room-compiler:$roomVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
+    implementation("androidx.room:room-rxjava3:$roomVersion")
+
+    implementation("io.reactivex.rxjava3:rxjava:3.1.5")
+    implementation("android.arch.persistence.room:rxjava2:1.1.1")
 
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.9.1")
 }

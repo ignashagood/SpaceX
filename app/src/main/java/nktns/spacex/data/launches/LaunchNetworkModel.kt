@@ -4,6 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import nktns.spacex.data.database.launches.LaunchDatabaseModel
 import nktns.spacex.ui.LaunchUIModel
+import nktns.spacex.util.convertLongToTime
 
 @Serializable
 data class LaunchList(val launches: List<LaunchNetworkModel>)
@@ -16,9 +17,6 @@ data class LaunchNetworkModel(
 
     @SerialName("rocket")
     val rocket: String? = null,
-
-    @SerialName("date_unix")
-    val dateUnix: Int? = null,
 
     @SerialName("auto_update")
     val autoUpdate: Boolean? = null,
@@ -41,8 +39,8 @@ data class LaunchNetworkModel(
     @SerialName("flight_number")
     val flightNumber: Int? = null,
 
-    @SerialName("date_utc")
-    val dateUtc: String,
+    @SerialName("date_unix")
+    val dateUnix: Long,
 
     @SerialName("static_fire_date_unix")
     val staticFireDateUnix: Int? = null,
@@ -85,7 +83,7 @@ fun List<LaunchNetworkModel>.asUIModel(): List<LaunchUIModel> {
     return map {
         LaunchUIModel(
             name = it.name,
-            date = it.dateUtc,
+            date = it.dateUnix.convertLongToTime(),
             image = it.links?.patch?.small
         )
     }
@@ -96,7 +94,7 @@ fun List<LaunchNetworkModel>.asDatabaseModel(): List<LaunchDatabaseModel> {
         LaunchDatabaseModel(
             id = it.id,
             name = it.name,
-            date = it.dateUtc,
+            date = it.dateUnix.convertLongToTime(),
             image = it.links?.patch?.small
         )
     }

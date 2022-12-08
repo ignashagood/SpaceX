@@ -11,6 +11,9 @@ data class CompanyDatabaseModel(
     val name: String,
     val founder: String,
     val website: String,
+    val summary: String,
+    val founded: String,
+    val twitter: String
 )
 
 fun CompanyDatabaseModel.asUIModel(): CompanyModel {
@@ -18,6 +21,9 @@ fun CompanyDatabaseModel.asUIModel(): CompanyModel {
         id = id,
         name = name,
         founder = founder,
-        website = website
+        website = website,
+        summary = summary,
+        founded = founded,
+        twitter = twitter
     )
 }

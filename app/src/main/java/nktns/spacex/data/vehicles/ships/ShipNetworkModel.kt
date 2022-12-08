@@ -70,14 +70,14 @@ fun List<ShipNetworkModel>.asDatabaseModel(): List<ShipDatabaseModel> {
             ShipDatabaseModel(
                 id = id,
                 name = name,
-                image = image,
+                image = image ?: "no image",
                 type = type,
-                model = model,
-                speed = speedKn,
-                homePort = homePort,
-                status = status,
-                MMSI = mmsi,
-                mass = massKg.toString()
+                model = model ?: "no info",
+                speed = speedKn?.toString() ?: "no info",
+                homePort = homePort ?: "no info",
+                status = if (status != "") status ?: "no info" else "no info",
+                MMSI = mmsi.toString(),
+                mass = massKg?.toString() ?: "no info"
             )
         }
     }
@@ -89,12 +89,12 @@ fun List<ShipNetworkModel>.asInteractorModel(): List<VehicleModel> {
             Ship(
                 id = id,
                 name = name,
-                image = image,
+                image = image ?: "no image",
                 type = type,
-                model = model,
-                speed = speedKn.toString(),
-                homePort = homePort,
-                status = status,
+                model = model ?: "no info",
+                speed = speedKn?.toString() ?: "no info",
+                homePort = homePort ?: "no info",
+                status = if (status != "") status ?: "no info" else "no info",
                 MMSI = mmsi.toString(),
                 mass = massKg.toString()
             )

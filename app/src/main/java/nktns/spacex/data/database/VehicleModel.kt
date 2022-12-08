@@ -23,12 +23,12 @@ data class Rocket(
 data class Ship(
     override val id: String,
     val name: String,
-    val image: String?,
+    val image: String,
     val type: String,
-    val model: String?,
+    val model: String,
     val speed: String,
-    val homePort: String?,
-    val status: String?,
+    val homePort: String,
+    val status: String,
     val MMSI: String,
     val mass: String
 ) : VehicleModel(id), Parcelable

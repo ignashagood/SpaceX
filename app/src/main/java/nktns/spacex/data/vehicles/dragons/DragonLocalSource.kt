@@ -1,6 +1,7 @@
 package nktns.spacex.data.vehicles.dragons
 
 import android.content.SharedPreferences
+import io.reactivex.rxjava3.core.Single
 import nktns.spacex.data.database.vehicles.dragons.DragonDAO
 import nktns.spacex.data.database.vehicles.dragons.DragonDatabaseModel
 import timber.log.Timber
@@ -18,7 +19,7 @@ class DragonLocalSource @Inject constructor(
         return (cachedAt != null)
     }
 
-    suspend fun saveDragons(dragons: List<DragonDatabaseModel>) {
+    fun saveDragons(dragons: List<DragonDatabaseModel>) {
         if (dragons.isEmpty()) return
 
         dao.addAll(dragons)
@@ -27,5 +28,5 @@ class DragonLocalSource @Inject constructor(
         Timber.d("TIME CACHE - $cachedAt")
     }
 
-    fun getDragons(): List<DragonDatabaseModel> = dao.getDragons()
+    fun getDragons(): Single<List<DragonDatabaseModel>> = dao.getDragons()
 }

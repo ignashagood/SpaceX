@@ -1,30 +1,29 @@
 package nktns.spacex.data.vehicles.dragons
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import io.reactivex.rxjava3.core.Single
 import nktns.spacex.data.database.VehicleModel
 import nktns.spacex.data.database.vehicles.dragons.asInteractorModel
-import nktns.spacex.util.Result
 import javax.inject.Inject
 
 class DragonRepository @Inject constructor(
     private val remoteSource: DragonRemoteSource,
     private val localSource: DragonLocalSource,
 ) {
-    fun getDragons(): Flow<Result<List<VehicleModel>>> = flow {
+    fun getDragons(): Single<List<VehicleModel>> = Single.create {
 
         if (localSource.isValid()) {
-            emit(Result.Success(localSource.getDragons().asInteractorModel()))
+            localSource.getDragons().subscribe({ list ->
+                it.onSuccess(list.asInteractorModel())
+            }, { throwable ->
+                it.onError(throwable)
+            })
         }
 
-        when (val result = remoteSource.getDragons()) {
-
-            is Result.Error -> emit(result)
-
-            is Result.Success -> {
-                emit(Result.Success(result.data.asInteractorModel()))
-                localSource.saveDragons(result.data.asDatabaseModel())
-            }
-        }
+        remoteSource.getDragons().subscribe({ list ->
+            it.onSuccess(list.asInteractorModel())
+            localSource.saveDragons(list.asDatabaseModel())
+        }, { throwable ->
+            it.onError(throwable)
+        })
     }
 }

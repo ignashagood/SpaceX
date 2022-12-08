@@ -1,6 +1,7 @@
 package nktns.spacex.data.vehicles.ships
 
 import android.content.SharedPreferences
+import io.reactivex.rxjava3.core.Single
 import nktns.spacex.data.database.vehicles.ships.ShipDAO
 import nktns.spacex.data.database.vehicles.ships.ShipDatabaseModel
 import timber.log.Timber
@@ -18,7 +19,7 @@ class ShipLocalSource @Inject constructor(
         return (cachedAt != null)
     }
 
-    suspend fun saveShips(ships: List<ShipDatabaseModel>) {
+    fun saveShips(ships: List<ShipDatabaseModel>) {
         if (ships.isEmpty()) return
 
         dao.addAll(ships)
@@ -27,5 +28,5 @@ class ShipLocalSource @Inject constructor(
         Timber.d("TIME CACHE - $cachedAt")
     }
 
-    fun getShips(): List<ShipDatabaseModel> = dao.getShips()
+    fun getShips(): Single<List<ShipDatabaseModel>> = dao.getShips()
 }

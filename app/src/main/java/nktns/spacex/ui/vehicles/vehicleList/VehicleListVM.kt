@@ -1,52 +1,48 @@
 package nktns.spacex.ui.vehicles.vehicleList
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.DiffUtil
-import kotlinx.coroutines.Dispatchers
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import nktns.spacex.base.calculateDiff
 import nktns.spacex.data.VehiclesInteractor
 import nktns.spacex.data.database.Dragon
 import nktns.spacex.data.database.Rocket
 import nktns.spacex.data.database.Ship
 import nktns.spacex.data.database.VehicleModel
-import nktns.spacex.util.Result
 import timber.log.Timber
 import javax.inject.Inject
 
 class VehicleListVM @Inject constructor(private val repository: VehiclesInteractor) : ViewModel() {
 
-    private var _state = MutableStateFlow<VehicleListState>(VehicleListState.InitialLoading)
+    private var _state = MutableLiveData<VehicleListState>(VehicleListState.InitialLoading)
     private var _action = MutableSharedFlow<VehicleListAction>(extraBufferCapacity = 1)
-    val state: StateFlow<VehicleListState> by ::_state
+    val state: LiveData<VehicleListState> by ::_state
     val action: Flow<VehicleListAction> by ::_action
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.getVehicles().collect { newVehicleList ->
-                when (newVehicleList) {
-                    is Result.Success -> {
-                        val currentVehicleList: List<VehicleModel> =
-                            (state.value as? VehicleListState.Content)?.vehicleList ?: emptyList()
-                        val result: DiffUtil.DiffResult =
-                            calculateDiff(
-                                currentVehicleList,
-                                newVehicleList.data,
-                                VehicleModel::id
-                            )
-                        _state.value = VehicleListState.Content(newVehicleList.data, result)
-                    }
-                    is Result.Error -> {
-                        Timber.e(newVehicleList.throwable)
-                    }
+        repository.getVehicles().subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { newVehicleList ->
+                    val currentVehicleList: List<VehicleModel> =
+                        (state.value as? VehicleListState.Content)?.vehicleList ?: emptyList()
+                    val result: DiffUtil.DiffResult =
+                        calculateDiff(
+                            currentVehicleList,
+                            newVehicleList,
+                            VehicleModel::id
+                        )
+                    _state.value = VehicleListState.Content(newVehicleList, result)
+                },
+                {
+                    Timber.e(it)
                 }
-            }
-        }
+            )
     }
 
     fun onItemClick(vehicle: VehicleModel) {

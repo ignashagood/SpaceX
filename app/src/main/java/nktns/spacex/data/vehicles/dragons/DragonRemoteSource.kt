@@ -1,12 +1,9 @@
 package nktns.spacex.data.vehicles.dragons
 
+import io.reactivex.rxjava3.core.Single
 import nktns.spacex.data.SpaceXApi
-import nktns.spacex.util.Result
-import nktns.spacex.util.withExceptionHandling
 import javax.inject.Inject
 
 class DragonRemoteSource @Inject constructor(private val spaceXApi: SpaceXApi) {
-    suspend fun getDragons(): Result<List<DragonNetworkModel>> = withExceptionHandling {
-        spaceXApi.getDragonsList()
-    }
+    fun getDragons(): Single<List<DragonNetworkModel>> = spaceXApi.getDragonsList()
 }

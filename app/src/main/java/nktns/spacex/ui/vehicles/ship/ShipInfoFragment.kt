@@ -84,12 +84,12 @@ class ShipInfoFragment : Fragment() {
                             it
                         ),
                         ComplexVehicleProperty("Type", type),
-                        ComplexVehicleProperty("Model", model ?: "no info"),
+                        ComplexVehicleProperty("Model", model),
                         ComplexVehicleProperty("Mass", "$mass kg"),
                         ComplexVehicleProperty("Speed", "$speed kn"),
-                        ComplexVehicleProperty("Home port", homePort ?: "no info"),
-                        ComplexVehicleProperty("Status", status ?: "no info"),
-                        ComplexVehicleProperty("MMSI", "$MMSI"),
+                        ComplexVehicleProperty("Home port", homePort),
+                        ComplexVehicleProperty("Status", status),
+                        ComplexVehicleProperty("MMSI", MMSI),
                     )
                     items = propertyList
                 }

@@ -1,6 +1,7 @@
 package nktns.spacex.data.vehicles.rockets
 
 import android.content.SharedPreferences
+import io.reactivex.rxjava3.core.Single
 import nktns.spacex.data.database.vehicles.rockets.RocketDAO
 import nktns.spacex.data.database.vehicles.rockets.RocketDatabaseModel
 import timber.log.Timber
@@ -18,7 +19,7 @@ class RocketLocalSource @Inject constructor(
         return (cachedAt != null)
     }
 
-    suspend fun saveRockets(rockets: List<RocketDatabaseModel>) {
+    fun saveRockets(rockets: List<RocketDatabaseModel>) {
         if (rockets.isEmpty()) return
 
         dao.addAll(rockets)
@@ -27,5 +28,5 @@ class RocketLocalSource @Inject constructor(
         Timber.d("TIME CACHE - $cachedAt")
     }
 
-    fun getRockets(): List<RocketDatabaseModel> = dao.getRockets()
+    fun getRockets(): Single<List<RocketDatabaseModel>> = dao.getRockets()
 }

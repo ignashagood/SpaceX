@@ -1,30 +1,29 @@
 package nktns.spacex.data.vehicles.rockets
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import io.reactivex.rxjava3.core.Single
 import nktns.spacex.data.database.VehicleModel
 import nktns.spacex.data.database.vehicles.rockets.asInteractorModel
-import nktns.spacex.util.Result
 import javax.inject.Inject
 
 class RocketRepository @Inject constructor(
     private val remoteSource: RocketRemoteSource,
     private val localSource: RocketLocalSource,
 ) {
-    fun getRockets(): Flow<Result<List<VehicleModel>>> = flow {
+    fun getRockets(): Single<List<VehicleModel>> = Single.create {
 
         if (localSource.isValid()) {
-            emit(Result.Success(localSource.getRockets().asInteractorModel()))
+            localSource.getRockets().subscribe({ list ->
+                it.onSuccess(list.asInteractorModel())
+            }, { throwable ->
+                it.onError(throwable)
+            })
         }
 
-        when (val result = remoteSource.getRockets()) {
-
-            is Result.Error -> emit(result)
-
-            is Result.Success -> {
-                emit(Result.Success(result.data.asInteractorModel()))
-                localSource.saveRockets(result.data.asDatabaseModel())
-            }
-        }
+        remoteSource.getRockets().subscribe({ list ->
+            it.onSuccess(list.asInteractorModel())
+            localSource.saveRockets(list.asDatabaseModel())
+        }, { throwable ->
+            it.onError(throwable)
+        })
     }
 }
